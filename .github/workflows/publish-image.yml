@@ -5,10 +5,16 @@ on:
   push:
     tags:
       - '*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version Tag'
+        required: true
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  VERSION: ${{ github.event.inputs.version || github.ref_name }}
 
 jobs:
   build-and-push-image:
@@ -32,12 +38,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v3.3.0
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v6.12.0
@@ -45,10 +45,9 @@ jobs:
           context: .
           file: Containerfile
           build-args: |
-            KC_VERSION=${{ steps.meta.outputs.tags }}
+            KC_VERSION=${{ env.VERSION }}
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
