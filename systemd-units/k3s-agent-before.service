@@ -1,0 +1,12 @@
+[Unit]
+Description=Kairos k3s-agent Before Hook
+Before=k3s-agent.service
+
+[Service]
+Type=oneshot
+# provider-kairos.bootstrap.before.k3s-agent is run when k3s-agent is up
+ExecStart=kairos-agent run-stage provider-kairos.bootstrap.before.k3s-agent
+
+[Install]
+# Make sure this is wanted by k3s
+WantedBy=k3s-agent.service
