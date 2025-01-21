@@ -38,6 +38,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Sanitize metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3.3.0
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ env.VERSION }}
+
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v6.12.0
@@ -47,7 +55,8 @@ jobs:
           build-args: |
             KC_VERSION=${{ env.VERSION }}
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
