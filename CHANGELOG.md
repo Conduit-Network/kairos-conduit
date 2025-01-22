@@ -3,7 +3,11 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [2025.01.22.1]
+- Upgrade Kairos to 3.4.2, k3s to 1.31.1
+
 ## [2025.01.22]
+- Release v2025.01.22
 - Replace systemd-timesyncd with chrony
 - Bring back metadata-action to sanitize image path
 - Rework Github Action file for manual runs
