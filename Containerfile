@@ -3,8 +3,8 @@ FROM quay.io/kairos/rockylinux:9-standard-amd64-generic-v3.2.1-k3sv1.31.1-k3s1
 ARG KC_VERSION
 
 # Enable NTP
-RUN dnf install -y systemd-timesyncd &&\
-    systemctl enable systemd-timesyncd
+RUN dnf install -y chrony &&\
+    systemctl enable chronyd
 
 # Install Tailscale
 RUN dnf install -y 'dnf-command(config-manager)' &&\
