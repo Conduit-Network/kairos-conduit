@@ -3,7 +3,14 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [2025.01.22]
+- Replace systemd-timesyncd with chrony
+- Bring back metadata-action to sanitize image path
+- Rework Github Action file for manual runs
+- Fix version on docker/build-push-action
+
 ## [2025.01.21]
+- Release v2025.01.21
 - Initial clean import into Github
 - Initial commit
 
