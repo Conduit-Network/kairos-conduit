@@ -1,4 +1,4 @@
-FROM quay.io/kairos/rockylinux:9-standard-amd64-generic-v3.2.4-k3sv1.31.3-k3s1
+FROM quay.io/kairos/rockylinux:9-standard-amd64-generic-v3.3.0-k3sv1.32.0-k3s1
 
 ARG KC_VERSION
 
