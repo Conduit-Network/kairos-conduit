@@ -3,22 +3,23 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [2025.01.30]
+- Add build.sh to facilitate local test builds
+- Switch to Ubuntu 24.04 base image
+
 ## [2025.01.28]
 - Upgrade kairos to v3.3.0 and k3s to v1.32.0
 
 ## [2025.01.22.1]
-- Release v2025.01.22.1
 - Upgrade Kairos to 3.4.2, k3s to 1.31.1
 
 ## [2025.01.22]
-- Release v2025.01.22
 - Replace systemd-timesyncd with chrony
 - Bring back metadata-action to sanitize image path
 - Rework Github Action file for manual runs
 - Fix version on docker/build-push-action
 
 ## [2025.01.21]
-- Release v2025.01.21
 - Initial clean import into Github
 - Initial commit
 

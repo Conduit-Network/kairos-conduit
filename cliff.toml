@@ -34,6 +34,7 @@ conventional_commits = false
 filter_unconventional = false
 # regex for parsing and grouping commits
 commit_parsers = [
+    { message = "^Release v.*", skip = true },
     { message = "^.*", group = "All" },
 ]
 # filter out the commits that are not matched by commit parsers
