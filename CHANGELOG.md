@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [2025.01.31]
+- Add UKI build
+
 ## [2025.01.30]
 - Add build.sh to facilitate local test builds
 - Switch to Ubuntu 24.04 base image
