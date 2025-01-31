@@ -38,6 +38,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Standard Build
+
       - name: Sanitize metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v3.3.0
@@ -63,4 +65,34 @@ jobs:
         with:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
+
+      # UKI Build
+
+      - name: (UKI) Sanitize metadata (tags, labels) for Docker
+        id: uki-meta
+        uses: docker/metadata-action@v3.3.0
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ env.VERSION }}-uki
+
+      - name: (UKI) Build and push Docker image
+        id: uki-push
+        uses: docker/build-push-action@v6.12.0
+        with:
+          context: .
+          file: Containerfile
+          build-args: |
+            KC_VERSION=${{ env.VERSION }}
+            KAIROS_FLAVOR=uki
+          push: true
+          tags: ${{ steps.uki-meta.outputs.tags }}
+          labels: ${{ steps.uki-meta.outputs.labels }}
+
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+          subject-digest: ${{ steps.uki-push.outputs.digest }}
           push-to-registry: true

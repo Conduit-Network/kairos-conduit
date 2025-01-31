@@ -1,4 +1,5 @@
-FROM quay.io/kairos/ubuntu:24.04-standard-amd64-generic-v3.3.0-k3sv1.32.0-k3s1
+ARG KAIROS_FLAVOR=k3sv1.32.0-k3s1
+FROM quay.io/kairos/ubuntu:24.04-standard-amd64-generic-v3.3.0-${KAIROS_FLAVOR}
 
 ARG KC_VERSION
 
